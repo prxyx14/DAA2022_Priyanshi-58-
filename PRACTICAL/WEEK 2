@@ -1,0 +1,88 @@
+/*QUES 1:- design an algorithm
+and implement it using a program to find whether the given key element is present in the array
+or not. If present, then also find the number of copies of given key*/
+#include<stdio.h>
+
+int main(){
+    int a[100],s,i,n,j=1,key;
+    printf("\n\nEnter number of arrays:-\n");
+    scanf("%d",&n);
+    while(j<=n){
+        int count=0;
+    printf("\n***********************************************\n");
+        printf("Enter the size of array\n");
+        scanf("%d",&s);
+        printf("Enter the elements:-\n");
+        for(i=0;i<s;i++)
+            {
+                scanf("%d",&a[i]);
+            }
+        printf("Enter the number you want to search:-\n");
+        scanf("%d",&key);
+        for(i=0;i<s;i++)
+        {
+            if(a[i]==key)
+            {
+                count++;
+            }
+        }
+        printf("***********************************************\n");
+        if(count!=0)
+        {
+            printf("\nTHE KEY EXISTS.....\nNumber of times- %d\n",count);
+        }
+        else
+        printf("THE NUMBER DOESN'T EXISTS WITHIN THE ARRAY!!");
+        j++;
+    }
+}
+
+
+
+
+
+/* QUES 2:- Given a sorted array of positive integers, design an algorithm and implement it using a program
+to find three indices i, j, k such that arr[i] + arr[j] = arr[k]. */
+
+#include<stdio.h>
+
+int main(){
+    int a[100],s,i,n,m=1,key,j,k,count;
+    printf("\n\nEnter number of arrays:-\n");
+    scanf("%d",&n);
+    while(m<=n){
+    printf("\n***********************************************\n");
+        printf("Enter the size of array\n");
+        scanf("%d",&s);
+        printf("Enter the elements:-\n");
+        for(i=0;i<s;i++)
+            {
+                scanf("%d",&a[i]);
+            }
+        printf("************************************************\n");
+        for(i=0;i<s;i++)
+        {
+            for(j=i+1;j<s;j++)
+            {
+                for(k=j+1;j<s;j++)
+                {
+                    if((a[i]+a[j])==a[k])
+                    {
+                        count++;
+                        printf("\nSEQUENCE DETECTED!!\n %d %d %d",i,j,k);
+                    }
+                }
+            }
+        }
+        if(count==0)
+        printf("\nNO SEQUENCE DETECTED!!\n");
+        m++;
+    }
+}
+
+
+
+
+/*QUES 3:-  Given an array of non-negative integers, design an algorithm and a program to count the number
+of pairs of integers such that their difference is equal to a given key, K. */
+
