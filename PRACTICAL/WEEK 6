@@ -1,0 +1,156 @@
+QUESTION 1:-
+
+#include<bits/stdc++.h>
+using namespace std;
+const int N=5;
+vector<int>g[N];
+ bool haspath(int source,int destination, vector<bool>&visited)
+    {
+        if(source==destination)return true;
+        visited[source]=true;
+        for(auto child:g[source])
+        {
+            if(!visited[child])
+            {
+               bool ans= haspath(child,destination,visited);
+                if(ans)return true;
+            }
+        }
+        return false;
+    }
+    
+int main()
+{
+    int M;
+    cout<<"ENter number of vertex";
+    cin>>M;
+     for(int i=0;i<M;i++)
+     {
+         int v1,v2;
+         cin>>v1>>v2;
+         g[v1].push_back(v2);
+         g[v2].push_back(v1);
+     }
+ for(int i=1;i<=5;i++)
+ {
+     cout<<i<<"-> ";
+     for(int &x:g[i])
+     {
+         cout<<x<<" ";
+     }
+     cout<<endl;
+ }
+ int s,d;
+ cin>>s>>d;
+ vector<bool>visited(N);
+ if(haspath(s,d,visited))cout<<"YES path exist!!";
+ else cout<<"No path exist";
+}
+
+QUESTION 2:-
+#include <bits/stdc++.h>
+using namespace std;
+
+bool bfs(int src, vector<int> adj[], int color[]) {
+    queue<int>q;
+    q.push(src); 
+    color[src] = 1; 
+    while(!q.empty()) {
+        int node = q.front(); 
+        q.pop();
+        
+        for(auto it : adj[node]) {
+            if(color[it] == -1) {
+                color[it] = 1 - color[node]; 
+                q.push(it); 
+            } else if(color[it] == color[node]) {
+                return false; 
+            }
+        }
+    }
+    return true; 
+}
+bool checkBipartite(vector<int> adj[], int n) {
+    int color[n];
+    memset(color, -1, sizeof color); 
+    for(int i = 0;i<n;i++) {
+        if(color[i] == -1) {
+            if(!bfs(i, adj, color)) {
+                return false;
+            }
+        }
+    }
+    return true; 
+}
+int main() {
+	int n, m;
+	cin >> n >> m;
+	vector<int> adj[n];
+	for(int i = 0;i<m;i++) {
+	    int u, v;
+	    cin >> u >> v;
+	    adj[u].push_back(v); 
+	    adj[v].push_back(u); 
+	}
+	
+	if(checkBipartite(adj, n)) {
+	    cout << "yes"; 
+	} else {
+	    cout << "No"; 
+	}
+	return 0;
+}
+
+QUESTION 3:-
+
+#include<bits/stdc++.h>
+
+using namespace std;
+
+
+    bool checkCycle(int node, vector < int > adj[], int vis[], int dfsVis[]) {
+      vis[node] = 1;
+      dfsVis[node] = 1;
+      for (auto it: adj[node]) {
+        if (!vis[it]) {
+          if (checkCycle(it, adj, vis, dfsVis)) return true;
+        } else if (dfsVis[it]) {
+          return true;
+        }
+      }
+      dfsVis[node] = 0;
+      return false;
+    }
+ 
+    bool isCyclic(int N, vector < int > adj[]) {
+      int vis[N], dfsVis[N];
+      memset(vis, 0, sizeof vis);
+      memset(dfsVis, 0, sizeof dfsVis);
+
+      for (int i = 0; i < N; i++) {
+        if (!vis[i]) {
+          // cout << i << endl; 
+          if (checkCycle(i, adj, vis, dfsVis)) {
+            return true;
+          }
+        }
+      }
+      return false;
+    }
+
+
+
+int main() {
+	int n, m;
+	cin >> n >> m;
+	vector<int> adj[n];
+	for(int i = 0;i<m;i++) {
+	    int u, v;
+	    cin >> u >> v;
+	    adj[u].push_back(v); 
+	    
+	}
+	if(isCyclic(n,adj))cout<<"yes cycle exist";
+    else cout<<"no cycle";
+	return 0;
+}
